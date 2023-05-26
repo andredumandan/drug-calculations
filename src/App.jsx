@@ -109,7 +109,7 @@ function IVRateCalculator() {
 
   return (
     <div className="calculator">
-      <h2>IV Rate Calculator</h2>
+      <h2>IV Flow Rate Calculator</h2>
       <div className="input-group">
         <label>Total IV Volume (ml):</label>
         <input type="number" value={volume} onChange={handleVolumeChange} />
@@ -133,9 +133,14 @@ function IVRateCalculator() {
 
 function App() {
   const [selectedOption, setSelectedOption] = useState('');
+  const [showAbout, setShowAbout] = useState(false);
 
   const handleDropdownChange = (event) => {
     setSelectedOption(event.target.value);
+  };
+
+  const handleToggleAbout = () => {
+    setShowAbout(!showAbout);
   };
 
   const renderCalculator = () => {
@@ -158,12 +163,26 @@ function App() {
       <h4>Calculate drug dosages with ease!</h4>
       <select value={selectedOption} onChange={handleDropdownChange} className="select-container">
         <option value="">Select an option</option>
-        <option value="tabletDosage">Tablet Dosages </option>
-        <option value="mixtureSolution">Mixtures and Solutions </option>
-        <option value="ivRate">IV Rate </option>
+        <option value="tabletDosage">Tablet Dosages</option>
+        <option value="mixtureSolution">Mixtures and Solutions</option>
+        <option value="ivRate">IV Flow Rate</option>
       </select>
       <div id="calculatorContainer">{renderCalculator()}</div>
-      <body>Drug Calculations is an educational web app that helps people in the medical field practice and improve their drug dosage calculation skills. With interactive calculators for tablet dosages, mixtures and solutions, and IV rates, users can enhance their understanding and gain hands-on experience. Streamline your learning and master essential medication calculations with Drug Calculations. </body>
+      <body>DISCLAIMER: Results of this calculator have not been verified by any professional. Formulas used were referenced from the internet.</body>
+
+      <button className="dropdown-toggle" onClick={handleToggleAbout}>
+        About
+      </button>
+      {showAbout && (
+        <div className="about-content">
+          <p>
+            Drug Calculations is an educational web app that helps people in the medical field practice and improve their drug dosage calculation skills. With interactive calculators for tablet dosages, mixtures and solutions, and IV rates, users can enhance their understanding and gain hands-on experience. Streamline your learning and master essential medication calculations with Drug Calculations.
+            <br/>
+            <br/>
+            This calculator was created and is maintained by Andre Dumandan, a student at the Ateneo de Manila University.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
