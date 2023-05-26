@@ -152,7 +152,7 @@ function App() {
 
   return (
     <div className="container">
-      <img src="/logo.png" alt="logo" className='logo-header' />
+      <img src="../public/logo.png" alt="logo" className='logo-header' />
       <h1>Drug Calculations</h1>
       <h4>Calculate drug dosages with ease!</h4>
       <select value={selectedOption} onChange={handleDropdownChange} className="select-container">
