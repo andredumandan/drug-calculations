@@ -75,6 +75,7 @@ function MixtureSolutionCalculator() {
 function IVRateCalculator() {
   const [volume, setVolume] = useState('');
   const [time, setTime] = useState('');
+  const [timeUnit, setTimeUnit] = useState('minutes');
   const [dropFactor, setDropFactor] = useState('');
   const [resultMlPerHour, setResultMlPerHour] = useState('');
   const [resultMlPerMinute, setResultMlPerMinute] = useState('');
@@ -89,18 +90,27 @@ function IVRateCalculator() {
     setTime(event.target.value);
   };
 
+  const handleTimeUnitChange = (event) => {
+    setTimeUnit(event.target.value);
+  };
+
   const handleDropFactorChange = (event) => {
     setDropFactor(event.target.value);
   };
 
   const handleCalculate = () => {
-    const calculatedMlPerHour = parseFloat(volume) / parseFloat(time);
+    let timeInMinutes = parseFloat(time);
+    if (timeUnit === 'hours') {
+      timeInMinutes *= 60;
+    }
+
+    const calculatedMlPerHour = parseFloat(volume) / timeInMinutes;
     setResultMlPerHour(isNaN(calculatedMlPerHour) ? '' : calculatedMlPerHour.toFixed(2));
 
     const calculatedMlPerMinute = calculatedMlPerHour / 60;
     setResultMlPerMinute(isNaN(calculatedMlPerMinute) ? '' : calculatedMlPerMinute.toFixed(2));
 
-    const calculatedDropsPerMinute = (parseFloat(volume) / parseFloat(time)) * parseFloat(dropFactor);
+    const calculatedDropsPerMinute = (parseFloat(volume) / timeInMinutes) * parseFloat(dropFactor);
     setResultDropsPerMinute(isNaN(calculatedDropsPerMinute) ? '' : calculatedDropsPerMinute.toFixed(2));
 
     const calculatedRemainingTime = (parseFloat(volume) / calculatedDropsPerMinute) * parseFloat(dropFactor);
@@ -115,8 +125,12 @@ function IVRateCalculator() {
         <input type="number" value={volume} onChange={handleVolumeChange} />
       </div>
       <div className="input-group">
-        <label>Time (minutes):</label>
+        <label>Time:</label>
         <input type="number" value={time} onChange={handleTimeChange} />
+        <select value={timeUnit} onChange={handleTimeUnitChange}>
+          <option value="minutes">Minutes</option>
+          <option value="hours">Hours</option>
+        </select>
       </div>
       <div className="input-group">
         <label>Drop Factor:</label>
