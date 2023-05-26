@@ -20,12 +20,16 @@ function TabletDosageCalculator() {
   };
 
   return (
-    <div>
+    <div className="calculator">
       <h2>Tablet Dosage Calculator</h2>
-      <p>Tablet Strength (mg):</p>
-      <input type="number" value={tabletStrength} onChange={handleTabletStrengthChange} />
-      <p>Desired Dose (mg):</p>
-      <input type="number" value={desiredDose} onChange={handleDesiredDoseChange} />
+      <div className="input-group">
+        <label>Tablet Strength (mg):</label>
+        <input type="number" value={tabletStrength} onChange={handleTabletStrengthChange} />
+      </div>
+      <div className="input-group">
+        <label>Desired Dose (mg):</label>
+        <input type="number" value={desiredDose} onChange={handleDesiredDoseChange} />
+      </div>
       <button onClick={handleCalculate}>Calculate</button>
       <p>Result: {result} tablets</p>
     </div>
@@ -46,17 +50,21 @@ function MixtureSolutionCalculator() {
   };
 
   const handleCalculate = () => {
-    const calculatedResult = (parseFloat(desiredDose) / parseFloat(concentration)) * parseFloat(volume);
+    const calculatedResult = (parseFloat(volume) * parseFloat(concentration)) / 1000;
     setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
   };
 
   return (
-    <div>
+    <div className="calculator">
       <h2>Mixture and Solution Calculator</h2>
-      <p>Volume (ml):</p>
-      <input type="number" value={volume} onChange={handleVolumeChange} />
-      <p>Concentration (mg/ml):</p>
-      <input type="number" value={concentration} onChange={handleConcentrationChange} />
+      <div className="input-group">
+        <label>Volume (ml):</label>
+        <input type="number" value={volume} onChange={handleVolumeChange} />
+      </div>
+      <div className="input-group">
+        <label>Concentration (mg/ml):</label>
+        <input type="number" value={concentration} onChange={handleConcentrationChange} />
+      </div>
       <button onClick={handleCalculate}>Calculate</button>
       <p>Result: {result} ml</p>
     </div>
@@ -99,14 +107,20 @@ function IVRateCalculator() {
   };
 
   return (
-    <div>
+    <div className="calculator">
       <h2>IV Rate Calculator</h2>
-      <p>Total IV Volume (ml):</p>
-      <input type="number" value={volume} onChange={handleVolumeChange} />
-      <p>Time (minutes):</p>
-      <input type="number" value={time} onChange={handleTimeChange} />
-      <p>Drop Factor:</p>
-      <input type="number" value={dropFactor} onChange={handleDropFactorChange} />
+      <div className="input-group">
+        <label>Total IV Volume (ml):</label>
+        <input type="number" value={volume} onChange={handleVolumeChange} />
+      </div>
+      <div className="input-group">
+        <label>Time (minutes):</label>
+        <input type="number" value={time} onChange={handleTimeChange} />
+      </div>
+      <div className="input-group">
+        <label>Drop Factor:</label>
+        <input type="number" value={dropFactor} onChange={handleDropFactorChange} />
+      </div>
       <button onClick={handleCalculate}>Calculate</button>
       <p>ML per Hour: {resultMlPerHour} ml/hr</p>
       <p>ML per Minute: {resultMlPerMinute} ml/min</p>
@@ -123,21 +137,33 @@ function App() {
     setSelectedOption(event.target.value);
   };
 
-  return (
-    <>
-      <h1>Drug Calculations</h1>
-      <h4>A web application to help nurses compute for drug dosages</h4>
-      <select value={selectedOption} onChange={handleDropdownChange}>
-        <option value="">Select an option</option>
-        <option value="tabletDosage">Tablet Dosages</option>
-        <option value="mixtureSolution">Mixtures and Solutions</option>
-        <option value="ivRate">IV Rate</option>
-      </select>
+  const renderCalculator = () => {
+    switch (selectedOption) {
+      case 'tabletDosage':
+        return <TabletDosageCalculator />;
+      case 'mixtureSolution':
+        return <MixtureSolutionCalculator />;
+      case 'ivRate':
+        return <IVRateCalculator />;
+      default:
+        return null;
+    }
+  };
 
-      {selectedOption === 'tabletDosage' && <TabletDosageCalculator />}
-      {selectedOption === 'mixtureSolution' && <MixtureSolutionCalculator />}
-      {selectedOption === 'ivRate' && <IVRateCalculator />}
-    </>
+  return (
+    <div className="container">
+      <img src="/logo.png" alt="logo" className='logo-header' />
+      <h1>Drug Calculations</h1>
+      <h4>Calculate drug dosages with ease!</h4>
+      <select value={selectedOption} onChange={handleDropdownChange} className="select-container">
+        <option value="">Select an option</option>
+        <option value="tabletDosage">Tablet Dosages </option>
+        <option value="mixtureSolution">Mixtures and Solutions </option>
+        <option value="ivRate">IV Rate </option>
+      </select>
+      <div id="calculatorContainer">{renderCalculator()}</div>
+      <body>Drug Calculations is an educational web app that helps people in the medical field practice and improve their drug dosage calculation skills. With interactive calculators for tablet dosages, mixtures and solutions, and IV rates, users can enhance their understanding and gain hands-on experience. Streamline your learning and master essential medication calculations with Drug Calculations. </body>
+    </div>
   );
 }
 
