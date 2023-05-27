@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import './App.css';
 import logo from '../public/logo.png';
+import lilogo from '../public/linkedin.png'
+import iglogo from '../public/ig.png'
+import ghlogo from '../public/github.png'
 
 function TabletDosageCalculator() {
   const [tabletStrength, setTabletStrength] = useState('');
@@ -145,6 +148,155 @@ function IVRateCalculator() {
   );
 }
 
+function BodySurfaceAreaCalculator() {
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [result, setResult] = useState('');
+
+  const handleHeightChange = (event) => {
+    setHeight(event.target.value);
+  };
+
+  const handleWeightChange = (event) => {
+    setWeight(event.target.value);
+  };
+
+  const handleCalculate = () => {
+    const calculatedResult = Math.sqrt((parseFloat(height) * parseFloat(weight)) / 3600);
+    setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
+  };
+
+  return (
+    <div className="calculator">
+      <h2>Body Surface Area Calculator</h2>
+      <div className="input-group">
+        <label>Height (cm):</label>
+        <input type="number" value={height} onChange={handleHeightChange} />
+      </div>
+      <div className="input-group">
+        <label>Weight (kg):</label>
+        <input type="number" value={weight} onChange={handleWeightChange} />
+      </div>
+      <button onClick={handleCalculate}>Calculate</button>
+      <p>Result: {result} m²</p>
+    </div>
+  );
+}
+
+function PediatricDosageCalculator() {
+  const [weight, setWeight] = useState('');
+  const [age, setAge] = useState('');
+  const [result, setResult] = useState('');
+
+  const handleWeightChange = (event) => {
+    setWeight(event.target.value);
+  };
+
+  const handleAgeChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  const handleCalculate = () => {
+    const calculatedResult = (parseFloat(weight) * parseFloat(age)) / 100;
+    setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
+  };
+
+  return (
+    <div className="calculator">
+      <h2>Pediatric Dosage Calculator</h2>
+      <div className="input-group">
+        <label>Weight (kg):</label>
+        <input type="number" value={weight} onChange={handleWeightChange} />
+      </div>
+      <div className="input-group">
+        <label>Age (months):</label>
+        <input type="number" value={age} onChange={handleAgeChange} />
+      </div>
+      <button onClick={handleCalculate}>Calculate</button>
+      <p>Result: {result} mg</p>
+    </div>
+  );
+}
+
+function ContinuousInfusionCalculator() {
+  const [dose, setDose] = useState('');
+  const [weight, setWeight] = useState('');
+  const [time, setTime] = useState('');
+  const [result, setResult] = useState('');
+
+  const handleDoseChange = (event) => {
+    setDose(event.target.value);
+  };
+
+  const handleWeightChange = (event) => {
+    setWeight(event.target.value);
+  };
+
+  const handleTimeChange = (event) => {
+    setTime(event.target.value);
+  };
+
+  const handleCalculate = () => {
+    const calculatedResult = (parseFloat(dose) * parseFloat(weight)) / (parseFloat(time) * 60);
+    setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
+  };
+
+  return (
+    <div className="calculator">
+      <h2>Continuous Infusion Calculator</h2>
+      <div className="input-group">
+        <label>Dose (mg/kg/min):</label>
+        <input type="number" value={dose} onChange={handleDoseChange} />
+      </div>
+      <div className="input-group">
+        <label>Weight (kg):</label>
+        <input type="number" value={weight} onChange={handleWeightChange} />
+      </div>
+      <div className="input-group">
+        <label>Time (hours):</label>
+        <input type="number" value={time} onChange={handleTimeChange} />
+      </div>
+      <button onClick={handleCalculate}>Calculate</button>
+      <p>Result: {result} ml/hr</p>
+    </div>
+  );
+}
+
+function TitrationCalculator() {
+  const [initialDose, setInitialDose] = useState('');
+  const [targetDose, setTargetDose] = useState('');
+  const [result, setResult] = useState('');
+
+  const handleInitialDoseChange = (event) => {
+    setInitialDose(event.target.value);
+  };
+
+  const handleTargetDoseChange = (event) => {
+    setTargetDose(event.target.value);
+  };
+
+  const handleCalculate = () => {
+    const calculatedResult = parseFloat(targetDose) - parseFloat(initialDose);
+    setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
+  };
+
+  return (
+    <div className="calculator">
+      <h2>Titration Calculator</h2>
+      <div className="input-group">
+        <label>Initial Dose (mg):</label>
+        <input type="number" value={initialDose} onChange={handleInitialDoseChange} />
+      </div>
+      <div className="input-group">
+        <label>Target Dose (mg):</label>
+        <input type="number" value={targetDose} onChange={handleTargetDoseChange} />
+      </div>
+      <button onClick={handleCalculate}>Calculate</button>
+      <p>Result: {result} mg</p>
+    </div>
+  );
+}
+
 function App() {
   const [selectedOption, setSelectedOption] = useState('');
   const [showAbout, setShowAbout] = useState(false);
@@ -165,6 +317,14 @@ function App() {
         return <MixtureSolutionCalculator />;
       case 'ivRate':
         return <IVRateCalculator />;
+      case 'bodySurfaceArea':
+        return <BodySurfaceAreaCalculator />;
+      case 'pediatricDosage':
+        return <PediatricDosageCalculator />;
+      case 'continuousInfusion':
+        return <ContinuousInfusionCalculator />;
+      case 'titration':
+        return <TitrationCalculator />;
       default:
         return null;
     }
@@ -172,7 +332,7 @@ function App() {
 
   return (
     <div className="container">
-      <img src={logo} alt="logo" className='logo-header' />
+      <img src={logo} alt="logo" className="logo-header" />
       <h1>Drug Calculations</h1>
       <h4>Calculate drug dosages with ease!</h4>
       <select value={selectedOption} onChange={handleDropdownChange} className="select-container">
@@ -180,9 +340,13 @@ function App() {
         <option value="tabletDosage">Tablet Dosages</option>
         <option value="mixtureSolution">Mixtures and Solutions</option>
         <option value="ivRate">IV Flow Rate</option>
+        <option value="bodySurfaceArea">Body Surface Area</option>
+        <option value="pediatricDosage">Pediatric Dosage</option>
+        <option value="continuousInfusion">Continuous Infusion</option>
+        <option value="titration">Titration</option>
       </select>
       <div id="calculatorContainer">{renderCalculator()}</div>
-      <body>DISCLAIMER: Results of this calculator have not been verified by any professional. Formulas used were referenced from the internet.</body>
+      <p>DISCLAIMER: Results of this calculator have not been verified by any professional. Formulas used were referenced from the internet.</p>
 
       <button className="dropdown-toggle" onClick={handleToggleAbout}>
         About
@@ -190,13 +354,24 @@ function App() {
       {showAbout && (
         <div className="about-content">
           <p>
-            Drug Calculations is an educational web app that helps people in the medical field practice and improve their drug dosage calculation skills. With interactive calculators for tablet dosages, mixtures and solutions, and IV rates, users can enhance their understanding and gain hands-on experience. Streamline your learning and master essential medication calculations with Drug Calculations.
-            <br/>
-            <br/>
-            This calculator was created and is maintained by Andre Dumandan, a student at the Ateneo de Manila University.
+            Drug Calculations is an educational web app that helps people in the medical field practice and improve their drug dosage calculation skills. With interactive calculators for tablet dosages, mixtures and solutions, IV flow rates, body surface area, pediatric dosage, continuous infusion, and titration, users can enhance their understanding and gain hands-on experience. Streamline your learning and master essential medication calculations with Drug Calculations.
+            <br />
+            <br />
+            This calculator was created and is maintained by Andre Dumandan, a student at the Ateneo de Manila University. Feedback is greatly appreciated!
           </p>
         </div>
       )}
+      <div className="social-media">
+        <a target="_blank" href="https://github.com/andredumandan">
+          <img src={ghlogo} alt='GitHub' className='logo' />
+        </a>
+        <a target="_blank" href="https://www.linkedin.com/in/andre-dumandan/">
+          <img src={lilogo} alt='LinkedIn' className='logo' />
+        </a>
+        <a target="_blank" href="https://www.instagram.com/andredumandan/">
+          <img src={iglogo} alt='Instagram' className='logo' />
+        </a>
+      </div>
     </div>
   );
 }
