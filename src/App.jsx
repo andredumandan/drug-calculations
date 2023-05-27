@@ -24,7 +24,7 @@ function TabletDosageCalculator() {
     <div className="calculator">
       <h2>Tablet Dosage Calculator</h2>
       <div className="input-group">
-        <label>Tablet Strength (mg):</label>
+        <label>Tablet Strength / Stock Dose (mg):</label>
         <input type="number" value={tabletStrength} onChange={handleTabletStrengthChange} />
       </div>
       <div className="input-group">
@@ -127,7 +127,7 @@ function IVRateCalculator() {
       <div className="input-group">
         <label>Time:</label>
         <input type="number" value={time} onChange={handleTimeChange} />
-        <select value={timeUnit} onChange={handleTimeUnitChange}>
+        <select className="time-unit" value={timeUnit} onChange={handleTimeUnitChange}>
           <option value="minutes">Minutes</option>
           <option value="hours">Hours</option>
         </select>
@@ -139,7 +139,7 @@ function IVRateCalculator() {
       <button onClick={handleCalculate}>Calculate</button>
       <p>ML per Hour: {resultMlPerHour} ml/hr</p>
       <p>ML per Minute: {resultMlPerMinute} ml/min</p>
-      <p>Drops per Minute: {resultDropsPerMinute} drops/min</p>
+      <p>Drops per Minute: {resultDropsPerMinute} gtts/min</p>
       <p>Remaining Time of Infusion: {resultRemainingTime} minutes</p>
     </div>
   );
