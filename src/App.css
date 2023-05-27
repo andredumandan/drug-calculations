@@ -40,7 +40,7 @@ p {
 input[type="number"],
 button,
 select {
-  width: 25%;
+  width: 24%;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
