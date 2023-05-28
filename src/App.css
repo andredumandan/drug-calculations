@@ -73,6 +73,11 @@ select {
   font-family: 'Roboto Condensed', sans-serif;
 }
 
+copyright{
+  font-size: 12px;
+  color: #94989e;
+}
+
 .dropdown-toggle {
   background-color: #189990;
   border: 1px solid #ccc;

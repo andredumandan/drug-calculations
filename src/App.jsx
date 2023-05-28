@@ -23,9 +23,12 @@ function TabletDosageCalculator() {
     setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
   };
 
+  const formula = "Desired Dose (mg) / Tablet Strength (mg)";
+
   return (
     <div className="calculator">
       <h2>Tablet Dosage Calculator</h2>
+      <p>Formula: {formula}</p>
       <div className="input-group">
         <label>Tablet Strength / Stock Dose (mg):</label>
         <input type="number" value={tabletStrength} onChange={handleTabletStrengthChange} />
@@ -58,9 +61,12 @@ function MixtureSolutionCalculator() {
     setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
   };
 
+  const formula = "(Volume (ml) * Concentration (mg/ml)) / 1000";
+
   return (
     <div className="calculator">
       <h2>Mixture and Solution Calculator</h2>
+      <p>Formula: {formula}</p>
       <div className="input-group">
         <label>Volume (ml):</label>
         <input type="number" value={volume} onChange={handleVolumeChange} />
@@ -120,9 +126,12 @@ function IVRateCalculator() {
     setResultRemainingTime(isNaN(calculatedRemainingTime) ? '' : calculatedRemainingTime.toFixed(2));
   };
 
+  const formula = "(Volume (ml) / Time (minutes)) * Drop Factor";
+
   return (
     <div className="calculator">
       <h2>IV Flow Rate Calculator</h2>
+      <p>Formula: {formula}</p>
       <div className="input-group">
         <label>Total IV Volume (ml):</label>
         <input type="number" value={volume} onChange={handleVolumeChange} />
@@ -166,9 +175,12 @@ function BodySurfaceAreaCalculator() {
     setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
   };
 
+  const formula = "√(Height (cm) * Weight (kg) / 3600)";
+
   return (
     <div className="calculator">
       <h2>Body Surface Area Calculator</h2>
+      <p>Formula: {formula}</p>
       <div className="input-group">
         <label>Height (cm):</label>
         <input type="number" value={height} onChange={handleHeightChange} />
@@ -201,9 +213,12 @@ function PediatricDosageCalculator() {
     setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
   };
 
+  const formula = "(Weight (kg) * Age (months)) / 100";
+
   return (
     <div className="calculator">
       <h2>Pediatric Dosage Calculator</h2>
+      <p>Formula: {formula}</p>
       <div className="input-group">
         <label>Weight (kg):</label>
         <input type="number" value={weight} onChange={handleWeightChange} />
@@ -241,9 +256,12 @@ function ContinuousInfusionCalculator() {
     setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
   };
 
+  const formula = "(Dose (mg/kg/min) * Weight (kg)) / (Time (hours) * 60)";
+
   return (
     <div className="calculator">
       <h2>Continuous Infusion Calculator</h2>
+      <p>Formula: {formula}</p>
       <div className="input-group">
         <label>Dose (mg/kg/min):</label>
         <input type="number" value={dose} onChange={handleDoseChange} />
@@ -280,9 +298,12 @@ function TitrationCalculator() {
     setResult(isNaN(calculatedResult) ? '' : calculatedResult.toFixed(2));
   };
 
+  const formula = "Target Dose (mg) - Initial Dose (mg)";
+
   return (
     <div className="calculator">
       <h2>Titration Calculator</h2>
+      <p>Formula: {formula}</p>
       <div className="input-group">
         <label>Initial Dose (mg):</label>
         <input type="number" value={initialDose} onChange={handleInitialDoseChange} />
@@ -346,8 +367,7 @@ function App() {
         <option value="titration">Titration</option>
       </select>
       <div id="calculatorContainer">{renderCalculator()}</div>
-      <p>DISCLAIMER: Results of this calculator have not been verified by any professional. Formulas used were referenced from the internet.</p>
-
+      <p>DISCLAIMER: The drug dosage calculator provided on this website is for educational purposes only. The results have not been verified by professionals and the formulas used were referenced from the internet. It is not a substitute for professional medical advice. Consult with healthcare professionals for accurate dosing recommendations and personalized medical guidance.</p>
       <button className="dropdown-toggle" onClick={handleToggleAbout}>
         About
       </button>
@@ -372,6 +392,8 @@ function App() {
           <img src={iglogo} alt='Instagram' className='logo' />
         </a>
       </div>
+      <br />
+      <copyright>© 2023 Andre Dumandan</copyright>
     </div>
   );
 }
